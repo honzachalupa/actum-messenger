@@ -1,0 +1,14 @@
+{% extends "layouts/default.nunj" %}
+
+{% set title = "Gulpie" %}
+
+{% block content %}
+    <ul>
+        {% for path in _pages %}
+            <li><a href="{{ path }}.html">{{ path }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <a href="#" class="btn btn-primary">Click me!</a>
+    <a href="#" class="btn btn-primary">No! Click me!</a>
+{% endblock %}
