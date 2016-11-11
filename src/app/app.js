@@ -3,11 +3,11 @@ import 'svgxuse';
 import init from './init';
 import factory from './factory';
 import MyModule from './components/module';
-import React, {Component} from "react";
-import Message from "./components/message";
-//import "./styles/style.min.css";
+import React, {Component} from 'react';
+import Message from './components/message';
+//import './styles/style.min.css';
 
-var currentUserId = "Honza", messages = [], infoStorage = {}; infoStorage.uniqueRecipients = [];
+var currentUserId = 'Honza', messages = [], infoStorage = {}; infoStorage.uniqueRecipients = [];
 
 class App extends Component {
     constructor(props) {
@@ -20,77 +20,77 @@ class App extends Component {
     sendMessage() {
         var message = {};
         message.from = currentUserId;
-        message.to = document.querySelector(".header .recipient").value;
-        message.content = document.querySelector(".response textarea").value;
+        message.to = document.querySelector('.header .recipient').value;
+        message.content = document.querySelector('.response textarea').value;
 
         if (message.to && message.content) {
-            const TIME_HTML = "<span class='time'>" + this.getTimestamp().time + "</span>" + "<span class='date'>" + this.getTimestamp().date + "</span>";
+            const TIME_HTML = '<span class='time'>' + this.getTimestamp().time + '</span>' + '<span class='date'>' + this.getTimestamp().date + '</span>';
 
             this.setState({
                 'messages': [
                     ...this.state.messages, {
-                        "timestamp": TIME_HTML,
-                        "from": message.from,
-                        "to": message.to,
-                        "content": message.content
+                        'timestamp': TIME_HTML,
+                        'from': message.from,
+                        'to': message.to,
+                        'content': message.content
                     }
                 ]
             });
 
             this.checkNewMessages(message.to);
 
-            document.querySelector(".response textarea").value = "";
-            document.querySelector(".thread").scrollTo(0, 0);
+            document.querySelector('.response textarea').value = '';
+            document.querySelector('.thread').scrollTo(0, 0);
 
-            document.querySelector(".header .recipient").placeholder = "Recipient";
-            document.querySelector(".response textarea").placeholder = "";
+            document.querySelector('.header .recipient').placeholder = 'Recipient';
+            document.querySelector('.response textarea').placeholder = '';
         }
         else {
-            document.querySelector(".header .recipient").placeholder = "Cannot be empty.";
-            document.querySelector(".response textarea").placeholder = "Cannot be empty.";
+            document.querySelector('.header .recipient').placeholder = 'Cannot be empty.';
+            document.querySelector('.response textarea').placeholder = 'Cannot be empty.';
         }
     }
 
     checkNewMessages(recipient) {
-        /*var html = "";
+        /*var html = '';
 
         for (var i in messages) {
             var message = messages[i];
 
             if (message.from === recipient || message.to === recipient) {
-                message.type = (message.from === currentUserId) ? "outcomming" : "incomming";
+                message.type = (message.from === currentUserId) ? 'outcomming' : 'incomming';
 
                 html +=
-                    "<div class='line'>" +
-                        "<div class='message " + message.type + "'>" +
-                            "<div class='info'>" +
-                                "<span class='from'>Od: " + message.from + "</span>" +
-                                "<span class='timestamp'>" + message.timestamp + "</span>" +
-                            "</div>" +
-                            "<p class='content'>" + message.content + "</p>" +
-                        "</div>" +
-                    "</div>";
+                    '<div class='line'>' +
+                        '<div class='message ' + message.type + ''>' +
+                            '<div class='info'>' +
+                                '<span class='from'>Od: ' + message.from + '</span>' +
+                                '<span class='timestamp'>' + message.timestamp + '</span>' +
+                            '</div>' +
+                            '<p class='content'>' + message.content + '</p>' +
+                        '</div>' +
+                    '</div>';
 
                 if(infoStorage.uniqueRecipients.indexOf(message.to) === -1) infoStorage.uniqueRecipients.push(message.to);
             }
         }
 
-        document.querySelector(".thread").innerHTML = html;*/
+        document.querySelector('.thread').innerHTML = html;*/
 
         this.loadHistory();
     }
 
     loadHistory() {
-        var html = "";
+        var html = '';
 
         for (var i in infoStorage.uniqueRecipients)
-            html += "<li>" + "<a onclick='openThread(\"" + infoStorage.uniqueRecipients[i] + "\")'>" + infoStorage.uniqueRecipients[i] + "</a>" + "</li>";
+            html += '<li>' + '<a onclick=\'openThread(\"' + infoStorage.uniqueRecipients[i] + '\")\'>' + infoStorage.uniqueRecipients[i] + '</a>' + '</li>';
 
-        document.querySelector(".history .threads").innerHTML = html;
+        document.querySelector('.history .threads').innerHTML = html;
     }
 
     openThread(recipient) {
-        document.querySelector(".header .recipient").value = recipient;
+        document.querySelector('.header .recipient').value = recipient;
 
         this.checkNewMessages(recipient);
     }
@@ -104,38 +104,38 @@ class App extends Component {
             minutes = NOW.getMinutes();
 
         return {
-            "time": hours + ":" + minutes,
-            "date": days + "." + months + "." + years
+            'time': hours + ':' + minutes,
+            'date': days + '.' + months + '.' + years
         };
     }
 
     render() {
         return (
             <div>
-                <div className="sidebar">
-                    <div className="button-container compose-message">
+                <div className='sidebar'>
+                    <div className='button-container compose-message'>
                         <button>New message</button>
                     </div>
 
-                    <div className="history">
+                    <div className='history'>
                         <h2>History</h2>
-                        <ul className="threads"></ul>
+                        <ul className='threads'></ul>
                     </div>
                 </div>
 
-                <div className="chat">
-                    <div className="header">
-                        <input className="recipient" type="text" placeholder="Recipient"/>
+                <div className='chat'>
+                    <div className='header'>
+                        <input className='recipient' type='text' placeholder='Recipient'/>
                     </div>
 
-                    <div className="thread">
+                    <div className='thread'>
                         {this.state.messages.filter((message) => message.to === document.querySelector('.recipient').value).map((message, i) => (<Message {...message} key={i}/>))}
                     </div>
 
-                    <div className="response">
+                    <div className='response'>
                         <textarea></textarea>
 
-                        <div className="button-container send-message">
+                        <div className='button-container send-message'>
                             <button onClick={this.sendMessage.bind(this)}>Send</button>
                         </div>
                     </div>

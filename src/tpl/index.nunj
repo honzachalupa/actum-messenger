@@ -1,0 +1,3 @@
+{% extends "layouts/default.nunj" %}
+
+{% set title = "Messenger" %}
